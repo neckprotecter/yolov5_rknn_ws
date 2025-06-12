@@ -1,5 +1,7 @@
 # 在rk3588部署yolov5检测，使用npu推理，并用ROS2调用
 
+> rk3588环境：Ubuntu22.04、ROS2 humble、python3.10
+
 ## PC端操作
 
 ### PC端环境准备
