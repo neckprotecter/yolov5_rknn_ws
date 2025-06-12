@@ -2,9 +2,9 @@
 
 > rk3588环境：Ubuntu22.04、ROS2 humble、python3.10
 
-## PC端操作
+## 1.PC端操作
 
-### PC端环境准备
+### 1.1 PC端环境准备
 > 所用PC环境：Ubuntu22.04，x86_64  
 > 参考：[https://docs.radxa.com/rock5/rock5b/app-development/rknn_install#pc-%E7%AB%AF%E4%B8%8B%E8%BD%BD-rknn-toolkit2-%E4%BB%93%E5%BA%93](https://docs.radxa.com/rock5/rock5b/app-development/rknn_install#pc-%E7%AB%AF%E4%B8%8B%E8%BD%BD-rknn-toolkit2-%E4%BB%93%E5%BA%93)
 
@@ -44,8 +44,8 @@ $ python3
 >>> from rknn.api import RKNN
 ```
 
-### PC端模型转化（pt转onnx）：  
-> 具体记不清，为防止错误，贴上参考博客。    
+### 1.2 PC端模型转化（pt转onnx）：  
+> 为防止错误，贴上参考博客，但博客中有些内容不适用，谨慎参考  
 > 参考   
 [https://blog.csdn.net/m0_57315535/article/details/128250096](https://blog.csdn.net/m0_57315535/article/details/128250096)  
 [https://blog.csdn.net/m0_55217834/article/details/130583886](https://blog.csdn.net/m0_55217834/article/details/130583886)
@@ -152,7 +152,7 @@ cd rknn_model_zoo/examples/yolov5/model
 bash download_model.sh
 ```
 
-### PC端模型转化（onnx转rknn）：
+### 1.3 PC端模型转化（onnx转rknn）：
 - 如使用venv虚拟环境，请先激活rknn环境
 ```bash
 source ~/venv/rknn/bin/activate
@@ -177,14 +177,16 @@ python3 convert.py <onnx_model> <TARGET_PLATFORM> <dtype> <output_rknn_path>
 
 - 将 rknn 模型拷贝到板端
 
-## 板端操作
+## 2.板端操作
 
-### 板端环境准备
+### 2.1 板端环境准备
 > 参考：[https://docs.radxa.com/rock5/rock5b/app-development/rknn_install#pc-%E7%AB%AF%E4%B8%8B%E8%BD%BD-rknn-toolkit2-%E4%BB%93%E5%BA%93](https://docs.radxa.com/rock5/rock5b/app-development/rknn_install#pc-%E7%AB%AF%E4%B8%8B%E8%BD%BD-rknn-toolkit2-%E4%BB%93%E5%BA%93)  
 
 - 镜像烧录：  
     本项目烧录镜像为    
     `Orangepi5plus_1.2.0_ubuntu_jammy_desktop_xfce_linux5.10.160.img`
+    > 请参考官方手册安装官方镜像：  
+    > http://www.orangepi.cn/html/serviceAndSupport/index.html
 
 - 烧录完成后，进入系统查看NPU驱动：  
 ```bash
@@ -213,7 +215,7 @@ python3.10 -m venv venv/rknn_py3.10
 source venv/rknn_py3.10/bin/activate
 ```
 
-#### （可选但推荐）虚拟环境单独安装 rknn_toolkit-lite2 wheel  
+#### 2.1.1（可选但推荐）虚拟环境单独安装 rknn_toolkit-lite2 wheel  
 > 参考 [https://docs.radxa.com/rock5/rock5b/app-development/rknn_install](https://docs.radxa.com/rock5/rock5b/app-development/rknn_install)
 
 - 下载仓库 [https://github.com/airockchip/rknn-toolkit2/tree/master](https://github.com/airockchip/rknn-toolkit2/tree/master)
@@ -233,7 +235,7 @@ $ python3
 >>> from rknnlite.api import RKNNLite as RKNN
 ``` 
 
-### 板端推理yolov5
+### 2.2 板端推理yolov5
 > 参考[https://docs.radxa.com/rock5/rock5b/app-development/rknn_toolkit_lite2_yolov5](https://docs.radxa.com/rock5/rock5b/app-development/rknn_toolkit_lite2_yolov5)
 
 - 下载仓库 [https://github.com/airockchip/rknn_model_zoo](https://github.com/airockchip/rknn_model_zoo)
@@ -292,7 +294,7 @@ python3 yolov5.py --model_path <your model path> --img_save
 
 - 所有推理结果保存在 ./result 中
 
-## 引入ROS2，并使用摄像头输入图像
+## 3.引入ROS2，并使用摄像头输入图像
 - 克隆或下载本仓库
 ```bash
 git clone https://github.com/neckprotecter/yolov5_rknn_ws.git
@@ -314,6 +316,6 @@ sudo chmod 777 ./make.sh ./detect.sh
 ./detect.sh
 ```
 
-### 相关参数修改介绍
+### 3.1 相关参数修改介绍
 - rknn模型文件放在 `src\yolov5_rknn_ros\models`
 - 在 [detect.launch.py](src\yolov5_rknn_ros\launch\detect.launch.py) 中修改导入的模型路径 model_path 和摄像头设备号 device_id
