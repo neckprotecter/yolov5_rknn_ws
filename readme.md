@@ -311,4 +311,6 @@ sudo chmod 777 ./make.sh ./detect.sh
 ./detect.sh
 ```
 
+### 相关参数修改介绍
 - rknn模型文件放在 `src\yolov5_rknn_ros\models`
+- 在 [detect.launch.py](src\yolov5_rknn_ros\launch\detect.launch.py) 中修改导入的模型路径 model_path 和摄像头设备号 device_id
