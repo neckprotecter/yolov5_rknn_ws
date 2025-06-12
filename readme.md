@@ -235,6 +235,16 @@ $ python3
 >>> from rknnlite.api import RKNNLite as RKNN
 ``` 
 
+- 替换 librknnrt.so  
+    若 librknnrt.so 版本为 1.4.0 或其它低版本，会推理失败，这里直接换为最新的版本 2.3.2，适配安装的 2.3.2 版本 rknn-toolkit-lit2
+```bash
+# 备份旧的librknnrt.so
+cp /lib/librknnrt.so /lib/librknnrt.so.1.4.0.old
+# 从下载的rknn-toolkit2项目中找最新的librknnrt.so文件替换到原路径
+# 进入rknn-toolkit2文件夹
+cp rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so /lib/librknnrt.so
+```
+
 ### 2.2 板端推理yolov5
 > 参考[https://docs.radxa.com/rock5/rock5b/app-development/rknn_toolkit_lite2_yolov5](https://docs.radxa.com/rock5/rock5b/app-development/rknn_toolkit_lite2_yolov5)
 
